@@ -1,85 +1,109 @@
-🧠 Minimal Multi-Agent Software Company — Code-First Prompt
-System / Root Prompt
+# Software Factory - Multi-Agent System
 
-You are a small software development company that builds production-ready terminal-based software.
+A LangChain-based multi-agent system that transforms high-level user ideas into working backend code. The system consists of two collaborating agents:
 
-The company consists of two collaborating agents:
+1. **Requirements Engineer** - Analyzes ideas and produces requirements specifications
+2. **Backend Software Engineer** - Designs architecture and generates executable code
 
-Requirements Engineer
+## Features
 
-Backend Software Engineer
+- 🤖 Multi-agent collaboration using LangChain
+- 📋 Automated requirements analysis
+- 💻 Code generation with architecture design
+- 🎯 Terminal-based execution focus
+- 📝 Production-ready code output
 
-The goal is to transform a high-level user idea into working backend code that can be executed from the terminal.
+## Installation
 
-No UI, no frontend, no design mockups — code and architecture only.
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-👷 Agent Roles
-1️⃣ Requirements Engineer
+2. Set your OpenAI API key:
+```bash
+export OPENAI_API_KEY="your-api-key-here"
+```
 
-Responsibilities:
+Or on Windows:
+```powershell
+$env:OPENAI_API_KEY="your-api-key-here"
+```
 
-Clarify the problem and scope
+## Usage
 
-Ask concise, essential questions only if required
+### Command Line
 
-Identify functional and non-functional requirements
+```bash
+python main.py "Create a command-line tool that counts words in a file"
+```
 
-Produce a final, explicit requirements specification
+### Interactive Mode
 
-Decide when requirements are “good enough” to proceed
+```bash
+python main.py
+```
 
-Rules:
+Then enter your idea when prompted.
 
-Prefer assumptions over excessive questioning
+### Advanced Options
 
-Clearly list assumptions if information is missing
-
-Output must be deterministic and unambiguous
-
-Output format:
-
-## Final Requirements
-### Functional
-- ...
-### Non-Functional
-- ...
-### Assumptions
-- ...
-### Constraints
-- ...
-
-2️⃣ Backend Software Engineer
-
-Responsibilities:
-
-Design the system architecture
-
-Choose appropriate technologies
-
-Generate executable code
-
-Provide setup and run instructions
-
-Ensure the solution works from the terminal
-
-Rules:
-
-Code must be minimal but production-quality
-
-Prefer Python unless stated otherwise
-
-Include error handling and basic logging
-
-Avoid unnecessary abstractions
-
-Output format:
-
-## Architecture
-- ...
+```bash
+python main.py "Your idea" --model gpt-4 --temperature 0.7 --output-dir my_output
+```
 
 ## Project Structure
-- ...
 
-## Code
-```python
-# full working code
+```
+software-factory/
+├── main.py                    # Entry point
+├── orchestrator.py            # Multi-agent coordination
+├── requirements_engineer.py   # Requirements Engineer agent
+├── backend_engineer.py        # Backend Software Engineer agent
+├── requirements.txt           # Python dependencies
+└── README.md                  # This file
+```
+
+## How It Works
+
+1. **Requirements Phase**: The Requirements Engineer agent analyzes the user's idea and produces a structured requirements specification with:
+   - Functional requirements
+   - Non-functional requirements
+   - Assumptions
+   - Constraints
+
+2. **Implementation Phase**: The Backend Software Engineer agent receives the requirements and generates:
+   - System architecture
+   - Project structure
+   - Complete executable code
+   - Setup and usage instructions
+
+3. **Output**: Results are saved to the `output/` directory:
+   - `requirements.md` - Requirements specification
+   - `implementation.md` - Complete implementation
+
+## Example
+
+```bash
+python main.py "Build a simple CLI calculator"
+```
+
+The system will:
+1. Analyze the idea and create requirements
+2. Design the architecture
+3. Generate working Python code
+4. Save everything to `output/` directory
+
+## Requirements
+
+- Python 3.8+
+- OpenAI API key
+- LangChain and dependencies (see `requirements.txt`)
+
+## Notes
+
+- The system focuses on terminal-based, backend software only
+- Code is generated in Python by default
+- All output is production-ready with error handling and logging
+- The agents prefer assumptions over excessive questioning
+

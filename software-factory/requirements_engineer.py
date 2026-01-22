@@ -7,17 +7,17 @@ This agent is responsible for:
 - Producing a final, explicit requirements specification
 """
 
-from langchain.agents import AgentExecutor, create_openai_tools_agent
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_openai import ChatOpenAI
-from langchain.tools import Tool
+from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.language_models import BaseChatModel
+from langchain_core.tools import Tool
 from typing import Dict, Any
 
 
 class RequirementsEngineer:
     """Requirements Engineer Agent that analyzes user ideas and produces specifications."""
     
-    def __init__(self, llm: ChatOpenAI):
+    def __init__(self, llm: BaseChatModel):
         self.llm = llm
         self.agent = self._create_agent()
     
@@ -67,7 +67,7 @@ Be thorough but concise. Only ask questions if critical information is missing."
             )
         ]
         
-        agent = create_openai_tools_agent(self.llm, tools, prompt)
+        agent = create_tool_calling_agent(self.llm, tools, prompt)
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
     
     def analyze(self, user_idea: str) -> Dict[str, Any]:

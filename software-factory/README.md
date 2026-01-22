@@ -20,14 +20,10 @@ A LangChain-based multi-agent system that transforms high-level user ideas into 
 pip install -r requirements.txt
 ```
 
-2. Set your OpenAI API key:
+2. Install Ollama and pull a model (e.g., llama3.1):
 ```bash
-export OPENAI_API_KEY="your-api-key-here"
-```
-
-Or on Windows:
-```powershell
-$env:OPENAI_API_KEY="your-api-key-here"
+ollama serve
+ollama pull llama3.1
 ```
 
 ## Usage
@@ -49,7 +45,7 @@ Then enter your idea when prompted.
 ### Advanced Options
 
 ```bash
-python main.py "Your idea" --model gpt-4 --temperature 0.7 --output-dir my_output
+python main.py "Your idea" --model llama3.1 --temperature 0.7 --output-dir my_output
 ```
 
 ## Project Structure
@@ -97,7 +93,7 @@ The system will:
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key
+- Ollama installed and running (with a model pulled)
 - LangChain and dependencies (see `requirements.txt`)
 
 ## Notes

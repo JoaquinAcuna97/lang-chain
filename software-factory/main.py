@@ -25,8 +25,8 @@ def main():
     )
     parser.add_argument(
         "--model",
-        default="gpt-4",
-        help="OpenAI model to use (default: gpt-4)"
+        default="llama3.1",
+        help="Ollama model to use (default: llama3.1)"
     )
     parser.add_argument(
         "--temperature",
@@ -35,8 +35,9 @@ def main():
         help="Temperature for LLM (default: 0.7)"
     )
     parser.add_argument(
-        "--api-key",
-        help="OpenAI API key (or set OPENAI_API_KEY env var)"
+        "--base-url",
+        default="http://localhost:11434",
+        help="Ollama base URL (default: http://localhost:11434)"
     )
     parser.add_argument(
         "--output-dir",
@@ -65,7 +66,7 @@ def main():
         orchestrator = SoftwareFactoryOrchestrator(
             model_name=args.model,
             temperature=args.temperature,
-            api_key=args.api_key
+            base_url=args.base_url
         )
         
         # Build the solution

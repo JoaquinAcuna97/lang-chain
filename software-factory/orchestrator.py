@@ -5,7 +5,7 @@ Coordinates the Requirements Engineer and Backend Software Engineer agents
 to transform high-level user ideas into working backend code.
 """
 
-from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 from requirements_engineer import RequirementsEngineer
 from backend_engineer import BackendEngineer
 from typing import Dict, Any, Optional
@@ -23,29 +23,22 @@ class SoftwareFactoryOrchestrator:
     
     def __init__(
         self,
-        model_name: str = "gpt-4",
+        model_name: str = "llama3.1",
         temperature: float = 0.7,
-        api_key: Optional[str] = None
+        base_url: str = "http://localhost:11434"
     ):
         """
         Initialize the orchestrator with agents.
         
         Args:
-            model_name: OpenAI model to use
+            model_name: Ollama model to use
             temperature: Temperature for LLM
-            api_key: OpenAI API key (if not set, uses OPENAI_API_KEY env var)
+            base_url: Ollama base URL
         """
-        api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError(
-                "OpenAI API key required. Set OPENAI_API_KEY environment variable "
-                "or pass api_key parameter."
-            )
-        
-        llm = ChatOpenAI(
+        llm = ChatOllama(
             model=model_name,
             temperature=temperature,
-            api_key=api_key
+            base_url=base_url
         )
         
         self.requirements_engineer = RequirementsEngineer(llm)

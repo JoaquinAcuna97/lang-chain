@@ -8,10 +8,10 @@ This agent is responsible for:
 - Providing setup and run instructions
 """
 
-from langchain.agents import AgentExecutor, create_openai_tools_agent
-from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_openai import ChatOpenAI
-from langchain.tools import Tool
+from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.language_models import BaseChatModel
+from langchain_core.tools import Tool
 from typing import Dict, Any
 import os
 
@@ -19,7 +19,7 @@ import os
 class BackendEngineer:
     """Backend Software Engineer Agent that designs and implements solutions."""
     
-    def __init__(self, llm: ChatOpenAI):
+    def __init__(self, llm: BaseChatModel):
         self.llm = llm
         self.agent = self._create_agent()
     
@@ -79,7 +79,7 @@ Generate complete, working code that can be executed immediately."""
             )
         ]
         
-        agent = create_openai_tools_agent(self.llm, tools, prompt)
+        agent = create_tool_calling_agent(self.llm, tools, prompt)
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
     
     def implement(self, requirements: str) -> Dict[str, Any]:
