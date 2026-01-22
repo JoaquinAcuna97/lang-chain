@@ -1,9 +1,10 @@
 # Software Factory - Multi-Agent System
 
-A LangChain-based multi-agent system that transforms high-level user ideas into working backend code. The system consists of two collaborating agents:
+A LangChain-based multi-agent system that transforms high-level user ideas into working backend code. The system consists of three collaborating agents:
 
 1. **Requirements Engineer** - Analyzes ideas and produces requirements specifications
 2. **Backend Software Engineer** - Designs architecture and generates executable code
+3. **Implementator** - Generates the actual code files on disk
 
 ## Features
 
@@ -20,14 +21,10 @@ A LangChain-based multi-agent system that transforms high-level user ideas into 
 pip install -r requirements.txt
 ```
 
-2. Set your OpenAI API key:
+2. Install Ollama and pull a model (e.g., llama3.1):
 ```bash
-export OPENAI_API_KEY="your-api-key-here"
-```
-
-Or on Windows:
-```powershell
-$env:OPENAI_API_KEY="your-api-key-here"
+ollama serve
+ollama pull llama3.1
 ```
 
 ## Usage
@@ -49,7 +46,7 @@ Then enter your idea when prompted.
 ### Advanced Options
 
 ```bash
-python main.py "Your idea" --model gpt-4 --temperature 0.7 --output-dir my_output
+python main.py "Your idea" --model llama3.1 --temperature 0.7 --output-dir my_output
 ```
 
 ## Project Structure
@@ -60,6 +57,7 @@ software-factory/
 ├── orchestrator.py            # Multi-agent coordination
 ├── requirements_engineer.py   # Requirements Engineer agent
 ├── backend_engineer.py        # Backend Software Engineer agent
+├── implementator.py           # Implementator agent (File Writer)
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This file
 ```
@@ -78,9 +76,14 @@ software-factory/
    - Complete executable code
    - Setup and usage instructions
 
-3. **Output**: Results are saved to the `output/` directory:
+3. **Code Generation Phase**: The Implementator agent reads the implementation plan and creates:
+   - Complete source code files
+   - Configuration files
+
+4. **Output**: Results are saved to `output/{project_name}/`:
    - `requirements.md` - Requirements specification
    - `implementation.md` - Complete implementation
+   - `code/` - Directory containing the generated source code
 
 ## Example
 
@@ -92,12 +95,12 @@ The system will:
 1. Analyze the idea and create requirements
 2. Design the architecture
 3. Generate working Python code
-4. Save everything to `output/` directory
+4. Save everything to `output/build_a_simple_cli_calculator/` directory
 
 ## Requirements
 
 - Python 3.8+
-- OpenAI API key
+- Ollama installed and running (with a model pulled)
 - LangChain and dependencies (see `requirements.txt`)
 
 ## Notes
