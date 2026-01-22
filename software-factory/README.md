@@ -4,6 +4,7 @@ A LangChain-based multi-agent system that transforms high-level user ideas into 
 
 1. **Requirements Engineer** - Analyzes ideas and produces requirements specifications
 2. **Backend Software Engineer** - Designs architecture and generates executable code
+3. **Implementator** - Generates the actual code files on disk
 
 ## Features
 
@@ -74,9 +75,14 @@ software-factory/
    - Complete executable code
    - Setup and usage instructions
 
-3. **Output**: Results are saved to the `output/` directory:
+3. **Code Generation Phase**: The Implementator agent reads the implementation plan and creates:
+   - Complete source code files
+   - Configuration files
+
+4. **Output**: Results are saved to `output/{project_name}/`:
    - `requirements.md` - Requirements specification
    - `implementation.md` - Complete implementation
+   - `code/` - Directory containing the generated source code
 
 ## Example
 
@@ -88,7 +94,7 @@ The system will:
 1. Analyze the idea and create requirements
 2. Design the architecture
 3. Generate working Python code
-4. Save everything to `output/` directory
+4. Save everything to `output/build_a_simple_cli_calculator/` directory
 
 ## Requirements
 

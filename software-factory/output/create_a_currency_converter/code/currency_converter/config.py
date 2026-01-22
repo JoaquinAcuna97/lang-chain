@@ -1,0 +1,1 @@
+api_key = "YOUR_FIXER_API_KEY" base_currency = "USD"

@@ -70,7 +70,7 @@ def main():
         )
         
         # Build the solution
-        result = orchestrator.build(user_idea)
+        result = orchestrator.build(user_idea, args.output_dir)
         
         # Save output
         orchestrator.save_output(result, args.output_dir)
